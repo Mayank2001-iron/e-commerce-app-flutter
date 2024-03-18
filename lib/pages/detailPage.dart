@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../model/product_model.dart';
 
@@ -90,17 +91,17 @@ class ProductDetailPage extends StatelessWidget {
                   children: [
                     Text(
                       product.brand!,
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      style:GoogleFonts.lato(fontSize:24,fontWeight:FontWeight.w900),
                     ),
+                    Gap(4),
                     Text(
                       "\$" + product.price.toString(),
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      style: GoogleFonts.lato(fontSize:24,fontWeight:FontWeight.w900),
                     ),
                   ],
                 ),
-                Text(product.title!),
+                Text(product.title!,style: GoogleFonts.lato(fontSize:10,fontWeight:FontWeight.w400),),
+                Gap(4),
                 Row(
                   children: [
                     RatingBar.builder(
@@ -111,22 +112,22 @@ class ProductDetailPage extends StatelessWidget {
                       direction: Axis.horizontal,
                       allowHalfRating: true,
                       itemCount: 5,
-                      itemSize: 20,
-                      // itemPadding:
+                      itemSize: 13,
+                      // itemPadding
                       itemBuilder: (context, _) => Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
                     ),
                     Gap(3),
-                    Text("(" + product.rating.toString() + ")"),
+                    Text("(" + product.rating.toString() + ")",style: GoogleFonts.lato(fontSize:10,fontWeight:FontWeight.w400),),
                   ],
                 ),
                 Gap(30),
                 Expanded(
                     child: Text(
                   product.description!,
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  style: GoogleFonts.lato(fontSize:14,fontWeight:FontWeight.w900),
                 )),
               ],
             ),

@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'detailPage.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,10 +14,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      backgroundColor: Colors.grey[200],
+  
       appBar: AppBar(
-        title: Text("Products"),
+        title: Text("Products",
+            style: GoogleFonts.lato(fontSize: 30, fontWeight: FontWeight.w700)),
       ),
       body: FutureBuilder(
           future: ApiCalls.getProducts(),
@@ -58,15 +58,27 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()
-      {
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>ProductDetailPage(product: product)));
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProductDetailPage(product: product)));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
           height: 100,
           width: MediaQuery.sizeOf(context).width,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(1, 4),
+                color: Colors.grey.shade400,
+                blurRadius: 25,
+                spreadRadius:0,
+              )
+            ]
+          ),
           child: Row(
             children: [
               Expanded(
@@ -74,7 +86,9 @@ class ProductTile extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(8),
+                              bottomLeft: Radius.circular(8)),
                           image: DecorationImage(
                               image: NetworkImage(product!.thumbnail!),
                               fit: BoxFit.cover)),
@@ -85,12 +99,14 @@ class ProductTile extends StatelessWidget {
                       child: Container(
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child:
-                              Text(product.discountPercentage.toString() + "%",style: TextStyle(fontSize: 10,color: Colors.white),),
+                          child: Text(
+                            product.discountPercentage.toString() + "%",
+                            style: TextStyle(fontSize: 10, color: Colors.white),
+                          ),
                         ),
                         decoration: BoxDecoration(
                           color: Colors.red,
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
                     ))
@@ -100,31 +116,61 @@ class ProductTile extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)),
-                  color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(10)),
+                    color: Colors.white,
                   ),
                   padding: EdgeInsets.all(5),
                   // color: Colors.amber,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      RatingBar.builder(
-                        onRatingUpdate: (value) {},
-                        initialRating: product!.rating!,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        ignoreGestures: true,
-                        itemCount: 5,
-                        itemSize: 20,
-                        // itemPadding:
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          RatingBar.builder(
+                            onRatingUpdate: (value) {},
+                            initialRating: product!.rating!,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            ignoreGestures: true,
+                            itemCount: 5,
+                            itemSize: 20,
+                            // itemPadding:
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                          ),
+                          Text("("+product.rating.toString()+")",
+                          style: GoogleFonts.lato(
+                            fontSize:10,
+                            fontWeight:FontWeight.w400,
+                          ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        product!.brand!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.lato(
+                          fontWeight:FontWeight.w400,
+                          fontSize:11,
+                          color:Colors.grey
                         ),
                       ),
-                      Text(product!.brand!,maxLines: 1,overflow: TextOverflow.ellipsis,),
-                      Text(product!.title!,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,),),
+                      Text(
+                        product!.title!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.lato(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -132,15 +178,18 @@ class ProductTile extends StatelessWidget {
                             product!.price.toString() + "\$",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: GoogleFonts.lato(
                                 decoration: TextDecoration.lineThrough,
-                                fontWeight: FontWeight.w600),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14
+                                ),
                           ),
                           Gap(10),
                           Text(
                             product!.discountPercentage.toString() + '\$',
-                            style: TextStyle(
-                                color: Colors.red, fontWeight: FontWeight.w600),
+                            style: GoogleFonts.lato(
+                              fontSize:14,
+                                color: Colors.red, fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
